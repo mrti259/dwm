@@ -1,5 +1,4 @@
 /* See LICENSE file for copyright and license details. */
-#define HOME "/home/borja"
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
@@ -36,7 +35,7 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 	{ "Telegram", NULL,       NULL,       0,            1,           0 },
-	{ "Discord",  NULL,       NULL,       0,            1,           0 },
+	{ "discord",  NULL,       NULL,       0,            1,           0 },
 	{ "Slack",    NULL,       NULL,       0,            1,           0 },
 };
 
@@ -72,15 +71,17 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "x-terminal-emulator", NULL };
-static const char *shotcmd[]  = { "scrot", "-u", HOME "/shots/%Y-%m-%d_%H%M%S.jpg", NULL };
+static const char *shotcmd[]  = { "scrot.sh", NULL };
+static const char *opencmd[]  = { "openselection.sh", NULL };
 static const char *shutdowncmd[]  = { "/sbin/shutdown", "0", NULL };
-static const char *rebootcmd[]  = { "/sbin/reboot", "0", NULL };
+static const char *rebootcmd[]  = { "/sbin/shutdown", "-r", "0", NULL };
 
 static Key keys[] = {
 	/* modifier                     key         function        argument */
 	{ MODKEY,                       XK_p,       spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return,  spawn,          {.v = termcmd } },
 	{ 0,                            XK_Print,   spawn,          {.v = shotcmd } },
+	{ MODKEY|ShiftMask,  	        XK_o,       spawn,          {.v = opencmd } },
 	{ MODKEY|ControlMask,           XK_Escape,  spawn,          {.v = shutdowncmd } },
 	{ MODKEY|ControlMask,           XK_r,       spawn,          {.v = rebootcmd } },
 	{ MODKEY,                       XK_b,       togglebar,      {0} },
